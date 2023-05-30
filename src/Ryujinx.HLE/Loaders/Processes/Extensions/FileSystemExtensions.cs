@@ -81,14 +81,7 @@ namespace Ryujinx.HLE.Loaders.Processes.Extensions
             // Apply Nsos patches.
             device.Configuration.VirtualFileSystem.ModLoader.ApplyNsoPatches(programId, nsoExecutables);
 
-            // Don't use PTC if ExeFS files have been replaced.
-            bool enablePtc = device.System.EnablePtc && !modLoadResult.Modified;
-            if (!enablePtc)
-            {
-                Logger.Warning?.Print(LogClass.Ptc, $"Detected unsupported ExeFs modifications. PTC disabled.");
-            }
-
-            // We allow it for nx-hbloader because it can be used to launch homebrew.
+           // We allow it for nx-hbloader because it can be used to launch homebrew.
             bool allowCodeMemoryForJit = programId == 0x010000000000100DUL || isHomebrew;
 
             string programName = "";
